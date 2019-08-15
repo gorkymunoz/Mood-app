@@ -6,4 +6,6 @@
     <string name="correo_electronico">Correo electrónico</string>
     <string name="contrasena">Contraseña</string>
     <string name="username">Nombre de usuario</string>
+    <string name="ir_login">¿Ya tienes una cuenta? Inicia Sesión</string>
+    <string name="registrate">Regístrate</string>
 </resources>
