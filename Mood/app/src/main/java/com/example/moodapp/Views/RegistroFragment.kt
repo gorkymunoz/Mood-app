@@ -3,6 +3,7 @@ package com.example.moodapp.Views
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -73,9 +74,9 @@ class RegistroFragment : Fragment(),View.OnClickListener {
                     val data = HashMap<String, Any>()
                     data["Username"] = username_registro.text.toString().trim()
                     data["Email"] = correo_registro.text.toString().trim()
-
+                    val bienvenidoUsuario: String = resources.getString(R.string.bienvenido,username_registro.text.toString().trim())
                     Toast.makeText(
-                        context, "Bienvenido ${username_registro.text.toString().trim()}",
+                        context, bienvenidoUsuario,
                         Toast.LENGTH_SHORT
                     ).show()
 
