@@ -14,27 +14,27 @@
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/fragment2"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/principal_host_fragment"/>
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp" app:navGraph="@navigation/nav_principal" app:defaultNavHost="true"
-            android:id="@+id/fragment2" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/principal_host_fragment" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"/>
+            app:layout_constraintBottom_toTopOf="@+id/principal_bottom_navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+            android:id="@+id/principal_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/colorPrimary"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
+            app:itemIconTint= "@drawable/item_selected"
+            app:itemTextColor="@drawable/item_selected"
             app:menu="@menu/menu_principal"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/fragment2"/>
+            app:layout_constraintTop_toBottomOf="@+id/principal_host_fragment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
