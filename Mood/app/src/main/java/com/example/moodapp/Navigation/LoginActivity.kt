@@ -1,7 +1,8 @@
-package com.example.moodapp
+package com.example.moodapp.Navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.moodapp.R
 
 class LoginActivity : AppCompatActivity() {
 

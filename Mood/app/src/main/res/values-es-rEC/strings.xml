@@ -9,4 +9,7 @@
     <string name="bienvenido">Bienvenido %s</string>
     <string name="ir_registro">¿No tienes una cuenta? Regístrate</string>
     <string name="inicia_sesion">Iniciar Sesión</string>
+    <string name="sugiere">Sugiere</string>
+    <string name="registra">Registra</string>
+    <string name="historial">Historial</string>
 </resources>

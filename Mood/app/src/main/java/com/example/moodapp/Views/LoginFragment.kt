@@ -12,9 +12,14 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.moodapp.Navigation.PrincipalActivity
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -50,6 +55,7 @@ class LoginFragment : Fragment(),View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         iniciarSesionBoton.setOnClickListener(this)
         irRegistro.setOnClickListener(this)
+        Glide.with(context!!).load(R.drawable.logo).into(imagen_login)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +66,9 @@ class LoginFragment : Fragment(),View.OnClickListener {
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
+        if (currentUser!=null){
+            usuarioLogueado()
+        }
     }
 
     fun goToRegistro(){
@@ -75,14 +84,26 @@ class LoginFragment : Fragment(),View.OnClickListener {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(context,"Credenciales correctas",Toast.LENGTH_SHORT).show()
-                //view?.findNavController()?.navigate(R.id.,null)
-
-                /*val intent = Intent(context, MainNavigationActivity::class.java)
-                startActivity(intent)
-                activity?.finish()*/
-
+                usuarioLogueado()
             } else {
-                Toast.makeText(context, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                try {
+                    throw task.exception!!
+                } catch (e: FirebaseAuthInvalidUserException) {
+                    correo_login.error = "Correo Invalido"
+                    correo_login.requestFocus()
+/*                    mStatusTextView.setError("Invalid Emaild Id")
+                    mStatusTextView.requestFocus()*/
+                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                    contrasena_login.error = "Credenciales Incorrectas"
+  /*                  Log.d(LOG_TAG, "email :$email")
+
+                    mStatusTextView.setError("Invalid Password")
+                    mStatusTextView.requestFocus()
+  */              } catch (e: FirebaseNetworkException) {
+                    Toast.makeText(context,"No tiene conexión a Internet",Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(context, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -107,6 +128,12 @@ class LoginFragment : Fragment(),View.OnClickListener {
             contrasena_login.error = null
         }
         return valido
+    }
+
+    fun usuarioLogueado(){
+        val intent = Intent(context, PrincipalActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 
 

@@ -11,4 +11,7 @@
     <string name="bienvenido">Welcome %s</string>
     <string name="ir_registro">Don\'t Have Account? Sign Up!</string>
     <string name="inicia_sesion">Sign In</string>
+    <string name="registra">Register</string>
+    <string name="sugiere">Suggest</string>
+    <string name="historial">Record</string>
 </resources>

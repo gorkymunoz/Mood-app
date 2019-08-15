@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/registra_fragment"
+          android:title="@string/registra"
+          android:icon="@drawable/ic_note_add"/>
+
+    <item android:id="@+id/historial_fragment"
+          android:title="@string/historial"
+          android:icon="@drawable/ic_notes"/>
+
+    <item android:id="@+id/sugiere_fragment"
+          android:title="@string/sugiere"
+          android:icon="@drawable/ic_create"/>
+</menu>
