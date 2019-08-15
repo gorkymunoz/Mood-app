@@ -4,9 +4,9 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_principal"
             app:startDestination="@id/registraEmocionFragment">
     <fragment android:id="@+id/registraEmocionFragment" android:name="com.example.moodapp.RegistraEmocionFragment"
-              android:label="fragment_registra_emocion" tools:layout="@layout/fragment_registra_emocion"/>
+              android:label="Registra emociones" tools:layout="@layout/fragment_registra_emocion"/>
     <fragment android:id="@+id/historialEmocionFragment" android:name="com.example.moodapp.HistorialEmocionesFragment"
-              android:label="fragment_historial_emociones" tools:layout="@layout/fragment_historial_emociones"/>
+              android:label="Historial" tools:layout="@layout/fragment_historial_emociones"/>
     <fragment android:id="@+id/sugiereEmocionFragment" android:name="com.example.moodapp.SugiereEmocionesFragment"
-              android:label="fragment_sugiere_emociones" tools:layout="@layout/fragment_sugiere_emociones"/>
+              android:label="Sugiere emociones" tools:layout="@layout/fragment_sugiere_emociones"/>
 </navigation>
