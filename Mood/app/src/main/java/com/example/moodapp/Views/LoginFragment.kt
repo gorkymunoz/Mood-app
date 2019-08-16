@@ -94,7 +94,7 @@ class LoginFragment : Fragment(),View.OnClickListener {
 /*                    mStatusTextView.setError("Invalid Emaild Id")
                     mStatusTextView.requestFocus()*/
                 } catch (e: FirebaseAuthInvalidCredentialsException) {
-                    contrasena_login.error = "Credenciales Incorrectas"
+                    contrasena_login_layout.error = "Credenciales Incorrectas"
   /*                  Log.d(LOG_TAG, "email :$email")
 
                     mStatusTextView.setError("Invalid Password")
