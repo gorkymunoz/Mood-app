@@ -1,12 +1,12 @@
-package com.example.moodapp
+package com.example.moodapp.Views
 
-import android.content.Context
-import android.net.Uri
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.moodapp.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -14,14 +14,19 @@ import android.view.ViewGroup
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class SugiereEmocionesFragment : Fragment() {
-
+/**
+ * A simple [Fragment] subclass.
+ *
+ */
+class HistorialEmocionesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sugiere_emociones, container, false)
+        return inflater.inflate(R.layout.fragment_historial_emociones, container, false)
     }
+
+
 }

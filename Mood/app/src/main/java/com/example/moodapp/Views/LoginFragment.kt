@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.evernote.android.state.State
+import com.evernote.android.state.StateSaver
 import com.example.moodapp.Navigation.PrincipalActivity
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
@@ -51,7 +53,13 @@ class LoginFragment : Fragment(),View.OnClickListener {
         return view
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        StateSaver.saveInstanceState(this, outState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        StateSaver.restoreInstanceState(this, savedInstanceState)
         super.onViewCreated(view, savedInstanceState)
         iniciarSesionBoton.setOnClickListener(this)
         irRegistro.setOnClickListener(this)

@@ -14,4 +14,7 @@
     <string name="registra">Register</string>
     <string name="sugiere">Suggest</string>
     <string name="historial">Record</string>
+    <string name="sugiere_actividad">Suggest a new activity</string>
+    <string name="nombre_actividad">Name of activity</string>
+    <string name="descripcion_actividad">Description of activity</string>
 </resources>
