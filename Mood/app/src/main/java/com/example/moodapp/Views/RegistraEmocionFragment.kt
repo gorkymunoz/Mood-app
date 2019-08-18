@@ -41,15 +41,15 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         val id = view.id
         when(id){
             R.id.fecha_registro_emocion -> mostrarDialogoFecha(calendar)
-            R.id.hora_registro_emocion -> mostrarDialogoHora()
+            R.id.hora_registro_emocion -> mostrarDialogoHora(calendar)
         }
     }
 
-    private fun mostrarDialogoHora() {
+    private fun mostrarDialogoHora(calendar: Calendar) {
         val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener{view,hora,minuto ->
-            
             horaRegistroEmocion.setText("$hora:$minuto")
         },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false)
+        timePicker.show()
     }
 
     private fun mostrarDialogoFecha(calendar: Calendar) {
@@ -75,9 +75,8 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
     ): View? {
         val view =inflater.inflate(R.layout.fragment_registra_emocion, container, false)
         fechaRegistroEmocion = view.findViewById(R.id.fecha_registro_emocion)
-        fechaRegistroEmocion.inputType = InputType.TYPE_NULL
-        fechaRegistroEmocion.setText(fechaActual(calendar))
         horaRegistroEmocion = view.findViewById(R.id.hora_registro_emocion)
+        iniciarFechaHora()
         return view
     }
 
@@ -87,6 +86,24 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         Glide.with(view.context).load(R.drawable.ic_watch).into(imagen_hora)
         fechaRegistroEmocion.setOnClickListener(this)
         horaRegistroEmocion.setOnClickListener(this)
+    }
+
+    fun iniciarFechaHora(){
+        fechaRegistroEmocion.inputType = InputType.TYPE_NULL
+        fechaRegistroEmocion.setText(fechaActual(calendar))
+
+        horaRegistroEmocion.inputType = InputType.TYPE_NULL
+        horaRegistroEmocion.setText(horaActual(calendar))
+    }
+
+    private fun horaActual(calendar: Calendar): String {
+        val hora = calendar.time
+        return darFormatoHora(hora)
+    }
+
+    private fun darFormatoHora(hora: Date): String {
+        val timeFormat = SimpleDateFormat("h:mm a").format(hora)
+        return timeFormat
     }
 
     fun fechaActual(calendar: Calendar):String{
