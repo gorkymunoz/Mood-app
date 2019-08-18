@@ -52,7 +52,7 @@
         />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
             android:text="asdasdasdasdasd"
             app:layout_constraintTop_toBottomOf="@id/textInputLayout2" android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"

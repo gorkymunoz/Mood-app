@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.moodapp.Interfaces.Utils
 import com.example.moodapp.Models.Usuario
 import com.example.moodapp.R
@@ -24,41 +25,43 @@ import kotlinx.android.synthetic.main.fragment_registro.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class RegistroFragment : Fragment(),View.OnClickListener,Utils {
+class RegistroFragment : Fragment(), View.OnClickListener, Utils {
 
-    override fun showProgressBar() {
-    }
-
-    override fun hideProgressBar() {
-    }
-
-    override fun showToast(mensaje:String) {
-        Toast.makeText(context,mensaje,Toast.LENGTH_SHORT).show()
-    }
-
-    private lateinit var auth:FirebaseAuth
-    private lateinit var mRegistrarseBoton:Button
+    private lateinit var auth: FirebaseAuth
+    private lateinit var mRegistrarseBoton: Button
     private lateinit var db: FirebaseFirestore
+    private lateinit var irLogin: TextView
 
     override fun onClick(view: View) {
         val id = view.id
-        when(id){
+        when (id) {
             R.id.ir_login -> goToLogin()
-            R.id.registrarse_boton -> registrarUsuario(correo_registro.text.toString(),contrasena_registro.text.toString())
+            R.id.registrarse_boton -> registrarUsuario(
+                correo_registro.text.toString(),
+                contrasena_registro.text.toString()
+            )
         }
     }
 
-    private fun goToLogin() {
-        findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
+    override fun showProgressBar() {
+        layout_registro.visibility = View.GONE
+        pb_registro.visibility = View.VISIBLE
     }
 
-    private lateinit var irLogin:TextView
+    override fun hideProgressBar() {
+        layout_registro.visibility = View.VISIBLE
+        pb_registro.visibility = View.GONE
+    }
+
+    override fun showToast(mensaje: String) {
+        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view  =inflater.inflate(R.layout.fragment_registro, container, false)
+        val view = inflater.inflate(R.layout.fragment_registro, container, false)
         irLogin = view.findViewById(R.id.ir_login)
         mRegistrarseBoton = view.findViewById(R.id.registrarse_boton)
         return view
@@ -68,6 +71,7 @@ class RegistroFragment : Fragment(),View.OnClickListener,Utils {
         super.onViewCreated(view, savedInstanceState)
         irLogin.setOnClickListener(this)
         mRegistrarseBoton.setOnClickListener(this)
+        Glide.with(view.context).load(R.drawable.logo).into(imagen_registro)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,13 +84,14 @@ class RegistroFragment : Fragment(),View.OnClickListener,Utils {
         if (!validarCampos()) {
             return
         }
+        showProgressBar()
         auth
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser!!.uid
                     guardarUsuario(userId)
-                }else{
+                } else {
                     Toast.makeText(
                         context, task.exception?.message.toString(),
                         Toast.LENGTH_SHORT
@@ -109,8 +114,14 @@ class RegistroFragment : Fragment(),View.OnClickListener,Utils {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val bienvenidoUsuario: String =
-                        resources.getString(R.string.bienvenido, username_registro.text.toString().trim())
+                        resources.getString(
+                            R.string.bienvenido,
+                            username_registro.text
+                                .toString()
+                                .trim()
+                        )
                     showToast(bienvenidoUsuario)
+                    hideProgressBar()
                 } else {
                     showToast(task.exception?.message.toString())
                 }
@@ -118,33 +129,36 @@ class RegistroFragment : Fragment(),View.OnClickListener,Utils {
 
     }
 
-    private fun validarCampos():Boolean{
+    private fun validarCampos(): Boolean {
         var valido = true
 
         val username = username_registro.text.toString()
-        if(TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             username_registro.error = "Obligatorio."
             valido = false
-        }else{
+        } else {
             username_registro.error = null
         }
         val email = correo_registro.text.toString()
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             correo_registro.error = "Obligatorio."
             valido = false
-        }else{
+        } else {
             correo_registro.error = null
         }
         val contrasena = contrasena_registro.text.toString()
-        if(TextUtils.isEmpty(contrasena)){
+        if (TextUtils.isEmpty(contrasena)) {
             contrasena_registro.error = "Obligatorio."
             valido = false
-        }else{
+        } else {
             contrasena_registro.error = null
         }
 
         return valido
     }
 
+    private fun goToLogin(){
+        findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
+    }
 
 }

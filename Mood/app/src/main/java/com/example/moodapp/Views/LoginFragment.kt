@@ -22,6 +22,9 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
