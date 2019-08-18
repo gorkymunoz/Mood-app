@@ -3,7 +3,6 @@ package com.example.moodapp.Views
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.moodapp.Interfaces.Utils
+import com.example.moodapp.Models.Usuario
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_registro.*
 
 
@@ -22,10 +24,21 @@ import kotlinx.android.synthetic.main.fragment_registro.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class RegistroFragment : Fragment(),View.OnClickListener {
+class RegistroFragment : Fragment(),View.OnClickListener,Utils {
 
-    private lateinit var mAuth:FirebaseAuth
+    override fun showProgressBar() {
+    }
+
+    override fun hideProgressBar() {
+    }
+
+    override fun showToast(mensaje:String) {
+        Toast.makeText(context,mensaje,Toast.LENGTH_SHORT).show()
+    }
+
+    private lateinit var auth:FirebaseAuth
     private lateinit var mRegistrarseBoton:Button
+    private lateinit var db: FirebaseFirestore
 
     override fun onClick(view: View) {
         val id = view.id
@@ -59,27 +72,20 @@ class RegistroFragment : Fragment(),View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAuth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
     }
 
     private fun registrarUsuario(email: String, password: String) {
         if (!validarCampos()) {
             return
         }
-        mAuth
+        auth
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val userId = mAuth.currentUser!!.uid
-                    val data = HashMap<String, Any>()
-                    data["Username"] = username_registro.text.toString().trim()
-                    data["Email"] = correo_registro.text.toString().trim()
-                    val bienvenidoUsuario: String = resources.getString(R.string.bienvenido,username_registro.text.toString().trim())
-                    Toast.makeText(
-                        context, bienvenidoUsuario,
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    val userId = auth.currentUser!!.uid
+                    guardarUsuario(userId)
                 }else{
                     Toast.makeText(
                         context, task.exception?.message.toString(),
@@ -87,6 +93,29 @@ class RegistroFragment : Fragment(),View.OnClickListener {
                     ).show()
                 }
             }
+    }
+
+    private fun guardarUsuario(userId: String) {
+        val nuevoUsuario = Usuario(
+            username_registro.text.toString().trim(),
+            correo_registro.text.toString().trim(),
+            null,
+            userId
+        )
+        db
+            .collection(resources.getString(R.string.coleccion_usuario))
+            .document(userId)
+            .set(nuevoUsuario)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val bienvenidoUsuario: String =
+                        resources.getString(R.string.bienvenido, username_registro.text.toString().trim())
+                    showToast(bienvenidoUsuario)
+                } else {
+                    showToast(task.exception?.message.toString())
+                }
+            }
+
     }
 
     private fun validarCampos():Boolean{

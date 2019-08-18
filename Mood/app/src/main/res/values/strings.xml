@@ -17,4 +17,5 @@
     <string name="sugiere_actividad">Suggest a new activity</string>
     <string name="nombre_actividad">Name of activity</string>
     <string name="descripcion_actividad">Description of activity</string>
+    <string name="coleccion_usuario" translatable="false">Usuarios</string>
 </resources>
