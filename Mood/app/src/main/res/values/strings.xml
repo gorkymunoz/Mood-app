@@ -18,4 +18,6 @@
     <string name="nombre_actividad">Name of activity</string>
     <string name="descripcion_actividad">Description of activity</string>
     <string name="coleccion_usuario" translatable="false">Usuarios</string>
+    <string name="registra_emocion">It\'s a good time to let us know how you feel</string>
+    <string name="como_te_sientes">How do you feel?</string>
 </resources>
