@@ -6,13 +6,11 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TimePicker
 import com.bumptech.glide.Glide
 import com.example.moodapp.R
 import kotlinx.android.synthetic.main.fragment_registra_emocion.*
@@ -47,7 +45,11 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
 
     private fun mostrarDialogoHora(calendar: Calendar) {
         val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener{view,hora,minuto ->
-            horaRegistroEmocion.setText("$hora:$minuto")
+            calendar.set(Calendar.HOUR_OF_DAY,hora)
+            calendar.set(Calendar.MINUTE,minuto)
+            val horaEscogida = calendar.time
+            val horaFormato = darFormatoHora(horaEscogida)
+            horaRegistroEmocion.setText(horaFormato)
         },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false)
         timePicker.show()
     }
@@ -101,9 +103,9 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         return darFormatoHora(hora)
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun darFormatoHora(hora: Date): String {
-        val timeFormat = SimpleDateFormat("h:mm a").format(hora)
-        return timeFormat
+        return SimpleDateFormat("h:mm a").format(hora)
     }
 
     fun fechaActual(calendar: Calendar):String{
