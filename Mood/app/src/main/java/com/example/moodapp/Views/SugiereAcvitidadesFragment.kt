@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +32,8 @@ class SugiereEmocionesFragment : Fragment(), View.OnClickListener {
             R.id.guardar_sugerencia ->
                 GuardarNuevaSugerencia(
                     nombre_sugerencia.text.toString().trim(),
-                    descripcion_sugerencia.text.toString().trim()
+                    descripcion_sugerencia.text.toString().trim(),
+                    auth.currentUser!!.uid
                 )
         }
     }
@@ -56,14 +58,33 @@ class SugiereEmocionesFragment : Fragment(), View.OnClickListener {
         guardarSugerencia.setOnClickListener(this)
     }
 
-    private fun GuardarNuevaSugerencia(nombreActividad:String,descripcionActividad:String) {
+    private fun GuardarNuevaSugerencia(nombreActividad:String,descripcionActividad:String,userId:String) {
         if(!validarCampos()){
             return
         }
-        val sugerenciaRef = db.collection(resources.getString(R.string.coleccion_sugerencia))
-        
+        val sugerencia = hashMapOf(
+            "nombre" to nombreActividad,
+            "descripcion" to descripcionActividad,
+            "userId" to userId
+        )
+        val sugerenciaRef = db
+            .collection(resources.getString(R.string.coleccion_sugerencia))
+        sugerenciaRef
+            .document()
+            .set(sugerencia)
+            .addOnCompleteListener{
+                task -> if (task.isSuccessful){
+                actualizarUI()
+                Toast.makeText(context, "Se guardó tu sugerencia", Toast.LENGTH_SHORT).show()
+            } else{
+                Toast.makeText(context, task.exception!!.message, Toast.LENGTH_SHORT).show()
+            }
+            }
+    }
 
-
+    fun actualizarUI(){
+        nombre_sugerencia.text?.clear()
+        descripcion_sugerencia.text?.clear()
     }
 
     fun validarCampos():Boolean{
