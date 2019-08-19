@@ -31,17 +31,20 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-
+        posicion = 0
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        Log.e("pos",position.toString())
+        posicion = position
         if(position==0){
             registroEmocion.actividad = null
+        }else{
+            registroEmocion.actividad = parent!!.getItemAtPosition(position).toString()
         }
-        registroEmocion.actividad = actividadesNombre[position]
+
     }
 
+    private var posicion : Int = -1
     private lateinit var auth: FirebaseAuth
     private val actividades = mutableListOf<Actividad>()
     private val actividadesNombre = mutableListOf<String>()
@@ -126,7 +129,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     }
 
     fun guardarNuevoRegistro(){
-        if(registroEmocion.actividad!=null){
+        if(posicion > 0){
             val userId = auth.currentUser!!.uid
             val registroRef = db
                 .collection(resources.getString(R.string.coleccion_usuario))
