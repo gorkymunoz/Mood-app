@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moodapp.Adapters.HistorialAdapter
 import com.example.moodapp.Models.RegistroEmocion
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +36,14 @@ class HistorialEmocionesFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_historial_emociones, container, false)
         historialRegistros = view.findViewById(R.id.historial_registros)
+        iniciarRVHistorial()
         return view
+    }
+
+    fun iniciarRVHistorial(){
+        historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
+        getData(auth.currentUser!!.uid)
+        historialRegistros.adapter = HistorialAdapter(registrosEmociones)
     }
 
     fun getData(userId: String) {

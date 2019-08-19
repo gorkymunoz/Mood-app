@@ -65,19 +65,6 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
         timePicker.show()
     }
 
-    private fun mostrarDialogoFecha(calendar: Calendar) {
-        val datePicker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, day)
-            val fechaEscogida = calendar.time
-            val fechaFormato = darFormatoFecha(fechaEscogida)
-            fechaRegistroEmocion.setText(fechaFormato)
-
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-        datePicker.show()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = FirebaseFirestore.getInstance()
@@ -96,15 +83,32 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
         return view
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e("destruye","me destruyeeeen")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        StateSaver.restoreInstanceState(this, savedInstanceState)
+        Glide.with(view.context).load(R.drawable.ic_date).into(imagen_fecha)
+        Glide.with(view.context).load(R.drawable.ic_watch).into(imagen_hora)
+        fechaRegistroEmocion.setOnClickListener(this)
+        horaRegistroEmocion.setOnClickListener(this)
     }
 
     private fun iniciarRVEmocion() {
         rvEmocion.layoutManager = LinearLayoutManager(this.context,RecyclerView.HORIZONTAL,false)
         getData()
         rvEmocion.adapter = EmocionAdapter(emociones){emocion:Emocion -> escogerActividad(emocion)}
+    }
+
+    private fun mostrarDialogoFecha(calendar: Calendar) {
+        val datePicker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+            val fechaEscogida = calendar.time
+            val fechaFormato = darFormatoFecha(fechaEscogida)
+            fechaRegistroEmocion.setText(fechaFormato)
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+        datePicker.show()
     }
 
     private fun escogerActividad(emocion: Emocion) {
@@ -118,15 +122,6 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
             )
         val bundle = bundleOf("registroEmocion" to registroEmocion)
         findNavController().navigate(R.id.action_registraEmocionFragment2_to_escogeActividadFragment,bundle)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
-        Glide.with(view.context).load(R.drawable.ic_date).into(imagen_fecha)
-        Glide.with(view.context).load(R.drawable.ic_watch).into(imagen_hora)
-        fechaRegistroEmocion.setOnClickListener(this)
-        horaRegistroEmocion.setOnClickListener(this)
     }
 
     fun iniciarFechaHora(){
