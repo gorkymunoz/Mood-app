@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_principal"
+            app:startDestination="@id/registraEmocionFragment">
+    <fragment android:id="@+id/registraEmocionFragment" android:name="com.example.moodapp.Views.RegistraEmocionFragment"
+              android:label="Registra emociones" tools:layout="@layout/fragment_registra_emocion"/>
+    <fragment android:id="@+id/historialEmocionFragment" android:name="com.example.moodapp.Views.HistorialEmocionesFragment"
+              android:label="Historial" tools:layout="@layout/fragment_historial_emociones"/>
+    <fragment android:id="@+id/sugiereEmocionFragment" android:name="com.example.moodapp.Views.SugiereEmocionesFragment"
+              android:label="Sugiere emociones" tools:layout="@layout/fragment_sugiere_emociones"/>
+</navigation>

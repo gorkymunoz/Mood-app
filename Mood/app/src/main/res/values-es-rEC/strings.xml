@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mood app</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="correo_electronico">Correo Electrónico</string>
+    <string name="ir_login">¿Ya tienes una cuenta? Inicia Sesión</string>
+    <string name="registrate">Regístrate</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="bienvenido">Bienvenido %s</string>
+    <string name="ir_registro">¿No tienes una cuenta? Regístrate</string>
+    <string name="inicia_sesion">Iniciar Sesión</string>
+    <string name="sugiere">Sugiere</string>
+    <string name="registra">Registra</string>
+    <string name="historial">Historial</string>
+    <string name="sugiere_actividad">Sugiere una nueva actividad</string>
+    <string name="descripcion_actividad">Descripción de la actividad</string>
+    <string name="nombre_actividad">Nombre de la actividad</string>
+    <string name="registra_emocion">Es un buen momento para hacernos saber como te sientes</string>
+    <string name="como_te_sientes">¿Cómo te sientes?</string>
+    <string name="label_registra_emocion">Registra una emoción</string>
+    <string name="label_historial">Historial de registros</string>
+    <string name="label_sugiere">Sugiere una actividad</string>
+    <string name="te_recomendamos">Te recomendamos</string>
+    <string name="tu_emocion">Te sientes</string>
+    <string name="label_escoge_actividad">Escoge una actividad</string>
+    <string name="sigue_asi">¡Seguir así!</string>
+</resources>
