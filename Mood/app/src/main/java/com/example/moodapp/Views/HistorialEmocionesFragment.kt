@@ -67,7 +67,7 @@ class HistorialEmocionesFragment : Fragment() {
                             emocionSeveridad = doc.document.getLong("emocionSeveridad")!!
                         )
                         registrosEmociones.add(registroEmocion)
-                        historialRegistros.adapter!!.notifyItemInserted(registrosEmociones.size - 1)
+                        historialRegistros.adapter!!.notifyDataSetChanged()
                     }
                     else -> return@addSnapshotListener
                 }
