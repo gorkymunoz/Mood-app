@@ -2,6 +2,7 @@ package com.example.moodapp
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.fragment_escoge_actividad.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,16 +22,23 @@ import kotlinx.android.synthetic.main.fragment_escoge_actividad.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
-class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        registroEmocion.actividad = null
+class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+    override fun onClick(view: View) {
+        val id = view.id
+        when(id){
+            R.id.guardar_registro -> guardarNuevoRegistro()
+        }
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        Log.e("pos",position.toString())
+        if(position==0){
+            registroEmocion.actividad = null
+        }
         registroEmocion.actividad = actividadesNombre[position]
     }
 
@@ -41,6 +48,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private lateinit var registroEmocion:RegistroEmocion
     lateinit var spActividades: Spinner
+    private lateinit var guardarRegistro:Button
     private lateinit var sigueAsi : TextView
     private lateinit var imagenActividad : ImageView
     private lateinit var db : FirebaseFirestore
@@ -53,9 +61,15 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spActividades = view.findViewById(R.id.sp_actividades)
         sigueAsi = view.findViewById(R.id.sigue_asi)
         imagenActividad = view.findViewById(R.id.imagen_actividad)
+        guardarRegistro = view.findViewById(R.id.guardar_registro)
         Glide.with(view.context).load(registroEmocion.emocionImagenUrl).into(imagenActividad)
         revisarSeveridad()
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        guardarRegistro.setOnClickListener(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,12 +125,38 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spActividades.onItemSelectedListener = this
     }
 
-    fun guardarRegistro(){
-        val userId = auth.currentUser!!.uid
-        val registroRef = db
-            .collection(resources.getString(R.string.coleccion_usuario))
-            .document(userId)
-            .collection(resources.getString(R.string.coleccion_registro))
+    fun guardarNuevoRegistro(){
+        if(registroEmocion.actividad!=null){
+            val userId = auth.currentUser!!.uid
+            val registroRef = db
+                .collection(resources.getString(R.string.coleccion_usuario))
+                .document(userId)
+                .collection(resources.getString(R.string.coleccion_registro))
+            registroRef.document()
+                .set(registroEmocion)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            context,
+                            "Registro completado",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }else{
+                        Toast.makeText(
+                            context,
+                            "Registro no completado",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
+        } else {
+            Toast.makeText(context,
+                resources.getString(R.string.debe_escoger_actividad),
+                Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
 }

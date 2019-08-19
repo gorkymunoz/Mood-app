@@ -29,4 +29,6 @@
     <string name="label_escoge_actividad">Choose an activity</string>
     <string name="sigue_asi">To keep it that way!</string>
     <string name="coleccion_registro" translatable="false">Registros</string>
+    <string name="debe_escoger_actividad">You have to choose an activity</string>
+    <string name="guardar">Save</string>
 </resources>
