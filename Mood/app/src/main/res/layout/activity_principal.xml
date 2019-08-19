@@ -26,7 +26,7 @@
 
     <FrameLayout
             android:id="@+id/nav_host_container"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" app:layout_constraintBottom_toTopOf="@+id/principal_bottom_navigation"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:id="@+id/principal_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             app:itemIconTint="@drawable/item_selected"
             app:itemTextColor="@drawable/item_selected"
             app:menu="@menu/menu_principal"

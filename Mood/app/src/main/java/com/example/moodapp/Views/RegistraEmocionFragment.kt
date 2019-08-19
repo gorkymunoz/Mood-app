@@ -4,13 +4,12 @@ package com.example.moodapp.Views
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.InputType
+import android.util.DisplayMetrics
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +20,13 @@ import com.example.moodapp.R
 import kotlinx.android.synthetic.main.fragment_registra_emocion.*
 import java.text.SimpleDateFormat
 import java.util.*
-
-
+import android.view.*
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.example.moodapp.Models.Emocion
+import com.example.moodapp.Models.RegistroEmocion
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +40,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
+    private val emociones = mutableListOf<Emocion>()
+    private val db = FirebaseFirestore.getInstance()
     private lateinit var fechaRegistroEmocion : EditText
     private lateinit var horaRegistroEmocion : EditText
     private lateinit var calendar:Calendar
@@ -102,8 +108,21 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
     private fun iniciarRVEmocion() {
         rvEmocion.layoutManager = LinearLayoutManager(this.context,RecyclerView.HORIZONTAL,false)
-        rvEmocion.adapter = EmocionAdapter()
+        getData()
+        rvEmocion.adapter = EmocionAdapter(emociones){emocion:Emocion -> escogerActividad(emocion)}
+    }
 
+    private fun escogerActividad(emocion: Emocion) {
+        val registroEmocion = RegistroEmocion(
+            fechaRegistro = fechaRegistroEmocion.text.toString(),
+            horaRegistro= horaRegistroEmocion.text.toString(),
+            emocionNombre= emocion.nombreEmocion,
+            emocionSeveridad= emocion.severidadEmocion,
+            emocionImagenUrl = emocion.imagenUrl,
+            actividad = null
+            )
+        val bundle = bundleOf("registroEmocion" to registroEmocion)
+        findNavController().navigate(R.id.action_registraEmocionFragment2_to_escogeActividadFragment,bundle)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -142,6 +161,32 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
     fun darFormatoFecha(fecha: Date):String{
         val dateFormat = SimpleDateFormat("EEEE, dd 'de' MMMM").format(fecha)
         return dateFormat
+    }
+
+    fun getData(){
+        val emocionessRef = db.collection("Emociones")
+        emocionessRef
+            .orderBy("severidad")
+            .addSnapshotListener{
+                    snapshot, exception ->
+                if (exception!=null){
+                    return@addSnapshotListener
+                }
+                for (doc in snapshot!!.documentChanges){
+                    when(doc.type){
+                        DocumentChange.Type.ADDED ->{
+                            val emocion = Emocion(
+                                doc.document.getString("nombre")!!,
+                                doc.document.getLong("severidad")!!,
+                                doc.document.getString("imagenUrl")!!
+                            )
+                            emociones.add(emocion)
+                            rvEmocion.adapter?.notifyItemInserted(emociones.size - 1)
+                        }
+                        else -> return@addSnapshotListener
+                    }
+                }
+            }
     }
 
 

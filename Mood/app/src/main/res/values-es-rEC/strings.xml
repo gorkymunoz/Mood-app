@@ -17,4 +17,7 @@
     <string name="nombre_actividad">Nombre de la actividad</string>
     <string name="registra_emocion">Es un buen momento para hacernos saber como te sientes</string>
     <string name="como_te_sientes">¿Cómo te sientes?</string>
+    <string name="label_registra_emocion">Registra una emoción</string>
+    <string name="label_historial">Historial de registros</string>
+    <string name="label_sugiere">Sugiere una actividad</string>
 </resources>

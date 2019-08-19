@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Mood app</string>
+    <string name="app_name" translatable="false">Mind plus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -18,7 +18,10 @@
     <string name="nombre_actividad">Name of activity</string>
     <string name="descripcion_actividad">Description of activity</string>
     <string name="coleccion_usuario" translatable="false">Usuarios</string>
+    <string name="label_registra_emocion">Register a emotion</string>
     <string name="registra_emocion">It\'s a good time to let us know how you feel</string>
     <string name="como_te_sientes">How do you feel?</string>
     <string name="fecha_registro">$d</string>
+    <string name="label_historial">Record history</string>
+    <string name="label_sugiere">Suggest an activity</string>
 </resources>

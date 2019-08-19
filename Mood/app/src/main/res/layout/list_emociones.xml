@@ -16,11 +16,12 @@
             app:layout_constraintBottom_toTopOf="@+id/nombre_emocion"/>
     <TextView
             android:text="TextView"
-            android:layout_width="80dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content" android:id="@+id/nombre_emocion"
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imagen_emocion"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintVertical_bias="1.0" android:layout_marginStart="4dp"
+            app:layout_constraintVertical_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="4dp"/>
+            app:layout_constraintEnd_toEndOf="parent" android:textAlignment="center" android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

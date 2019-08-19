@@ -6,5 +6,5 @@
 
     <fragment android:id="@+id/historialEmocionesFragment"
               android:name="com.example.moodapp.Views.HistorialEmocionesFragment"
-              android:label="fragment_historial_emociones" tools:layout="@layout/fragment_historial_emociones"/>
+              android:label="@string/label_historial" tools:layout="@layout/fragment_historial_emociones"/>
 </navigation>
