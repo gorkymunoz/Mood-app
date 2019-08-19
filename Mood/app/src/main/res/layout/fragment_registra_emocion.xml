@@ -18,7 +18,7 @@
     <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/fecha_registro_emocion"
               android:inputType="none"
-              android:text="13:12"
+              android:focusableInTouchMode="false"
               android:layout_marginTop="8dp"
               app:layout_constraintTop_toBottomOf="@+id/textView3" android:layout_marginStart="8dp"
               app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -35,7 +35,7 @@
 
     <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/hora_registro_emocion"
-              android:hint="12/12/19"
+              android:focusableInTouchMode="false"
               android:inputType="none"
               app:layout_constraintStart_toStartOf="@+id/fecha_registro_emocion"
               app:layout_constraintEnd_toEndOf="@+id/fecha_registro_emocion" android:layout_marginTop="8dp"
@@ -60,6 +60,7 @@
             android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="24dp"/>
+            android:layout_marginStart="8dp" android:layout_marginTop="24dp" android:id="@+id/rv_emociones"
+            tools:listitem="@layout/list_emociones" android:orientation="horizontal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

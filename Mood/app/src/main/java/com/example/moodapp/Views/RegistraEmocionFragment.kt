@@ -6,12 +6,17 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.evernote.android.state.StateSaver
+import com.example.moodapp.Adapters.EmocionAdapter
 import com.example.moodapp.R
 import kotlinx.android.synthetic.main.fragment_registra_emocion.*
 import java.text.SimpleDateFormat
@@ -29,11 +34,17 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class RegistraEmocionFragment : Fragment(), View.OnClickListener {
+class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
     private lateinit var fechaRegistroEmocion : EditText
     private lateinit var horaRegistroEmocion : EditText
     private lateinit var calendar:Calendar
+    private lateinit var rvEmocion:RecyclerView
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        StateSaver.saveInstanceState(this, outState)
+    }
 
     override fun onClick(view: View) {
         val id = view.id
@@ -78,12 +89,26 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         val view =inflater.inflate(R.layout.fragment_registra_emocion, container, false)
         fechaRegistroEmocion = view.findViewById(R.id.fecha_registro_emocion)
         horaRegistroEmocion = view.findViewById(R.id.hora_registro_emocion)
+        rvEmocion = view.findViewById(R.id.rv_emociones)
+        iniciarRVEmocion()
         iniciarFechaHora()
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("destruye","me destruyeeeen")
+    }
+
+    private fun iniciarRVEmocion() {
+        rvEmocion.layoutManager = LinearLayoutManager(this.context,RecyclerView.HORIZONTAL,false)
+        rvEmocion.adapter = EmocionAdapter()
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        StateSaver.restoreInstanceState(this, savedInstanceState)
         Glide.with(view.context).load(R.drawable.ic_date).into(imagen_fecha)
         Glide.with(view.context).load(R.drawable.ic_watch).into(imagen_hora)
         fechaRegistroEmocion.setOnClickListener(this)
