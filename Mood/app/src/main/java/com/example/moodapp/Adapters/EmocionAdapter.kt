@@ -21,35 +21,6 @@ class EmocionAdapter(
     private val clickListener: (Emocion) -> Unit) :
     RecyclerView.Adapter<EmocionViewHolder>() {
 
-
-    /*private val db = FirebaseFirestore.getInstance()
-    private val emociones = mutableListOf<Emocion>()
-    init {
-        val emocionessRef = db.collection("Emociones")
-        emocionessRef
-            .orderBy("severidad")
-            .addSnapshotListener{
-            snapshot, exception ->
-            if (exception!=null){
-                return@addSnapshotListener
-            }
-            for (doc in snapshot!!.documentChanges){
-                when(doc.type){
-                    DocumentChange.Type.ADDED ->{
-                        val emocion = Emocion(
-                            doc.document.getString("nombre")!!,
-                            doc.document.getLong("severidad")!!,
-                            doc.document.getString("imagenUrl")!!
-                        )
-                        emociones.add(emocion)
-                        notifyItemInserted(emociones.size - 1)
-                    }
-                    else -> return@addSnapshotListener
-                }
-            }
-        }
-    }*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmocionViewHolder {
         val view =LayoutInflater.from(parent.context)
             .inflate(R.layout.list_emociones,parent,false)
@@ -78,9 +49,9 @@ class EmocionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     fun bind(emocion: Emocion,clickListener:(Emocion)->Unit){
         itemView.setOnClickListener { clickListener(emocion)}
     }
-    var nombreEmocion = itemView.findViewById<TextView>(R.id.nombre_emocion)
+    val nombreEmocion = itemView.findViewById<TextView>(R.id.nombre_emocion)
+    val imagePost =itemView.findViewById<ImageView>(R.id.imagen_emocion)
     fun setImage(url:String){
-        val imagePost =itemView.findViewById<ImageView>(R.id.imagen_emocion)
         Glide
             .with(itemView.context)
             .load(url)
