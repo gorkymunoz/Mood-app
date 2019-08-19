@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import com.example.moodapp.Navigation.PrincipalActivity
 import com.example.moodapp.R
@@ -22,9 +21,6 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
-
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -56,13 +52,7 @@ class LoginFragment : Fragment(),View.OnClickListener {
         return view
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        StateSaver.saveInstanceState(this, outState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        StateSaver.restoreInstanceState(this, savedInstanceState)
         super.onViewCreated(view, savedInstanceState)
         iniciarSesionBoton.setOnClickListener(this)
         irRegistro.setOnClickListener(this)
@@ -106,9 +96,7 @@ class LoginFragment : Fragment(),View.OnClickListener {
                     mStatusTextView.requestFocus()*/
                 } catch (e: FirebaseAuthInvalidCredentialsException) {
                     contrasena_login_layout.error = "Credenciales Incorrectas"
-  /*                  Log.d(LOG_TAG, "email :$email")
-
-                    mStatusTextView.setError("Invalid Password")
+  /*                     mStatusTextView.setError("Invalid Password")
                     mStatusTextView.requestFocus()
   */              } catch (e: FirebaseNetworkException) {
                     Toast.makeText(context,"No tiene conexión a Internet",Toast.LENGTH_SHORT).show()
@@ -117,8 +105,6 @@ class LoginFragment : Fragment(),View.OnClickListener {
                 }
             }
         }
-
-
     }
 
     private fun validarCampos():Boolean{
@@ -146,6 +132,4 @@ class LoginFragment : Fragment(),View.OnClickListener {
         startActivity(intent)
         activity?.finish()
     }
-
-
 }

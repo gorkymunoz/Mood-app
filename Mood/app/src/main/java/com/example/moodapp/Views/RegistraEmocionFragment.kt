@@ -4,10 +4,8 @@ package com.example.moodapp.Views
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.InputType
-import android.util.DisplayMetrics
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.widget.EditText
@@ -34,10 +32,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
     private val emociones = mutableListOf<Emocion>()
@@ -116,9 +110,9 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
         val registroEmocion = RegistroEmocion(
             fechaRegistro = fechaRegistroEmocion.text.toString(),
             horaRegistro= horaRegistroEmocion.text.toString(),
-            emocionNombre= emocion.nombreEmocion,
-            emocionSeveridad= emocion.severidadEmocion,
-            emocionImagenUrl = emocion.imagenUrl,
+            emocionNombre= emocion.nombreEmocion!!,
+            emocionSeveridad= emocion.severidadEmocion!!,
+            emocionImagenUrl = emocion.imagenUrl!!,
             actividad = null
             )
         val bundle = bundleOf("registroEmocion" to registroEmocion)
@@ -176,9 +170,9 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
                     when(doc.type){
                         DocumentChange.Type.ADDED ->{
                             val emocion = Emocion(
-                                doc.document.getString("nombre")!!,
-                                doc.document.getLong("severidad")!!,
-                                doc.document.getString("imagenUrl")!!
+                                doc.document.getString("nombre"),
+                                doc.document.getLong("severidad"),
+                                doc.document.getString("imagenUrl")
                             )
                             emociones.add(emocion)
                             rvEmocion.adapter?.notifyItemInserted(emociones.size - 1)

@@ -21,7 +21,12 @@
     <string name="label_registra_emocion">Register a emotion</string>
     <string name="registra_emocion">It\'s a good time to let us know how you feel</string>
     <string name="como_te_sientes">How do you feel?</string>
-    <string name="fecha_registro">$d</string>
     <string name="label_historial">Record history</string>
     <string name="label_sugiere">Suggest an activity</string>
+    <string name="tu_emocion">You feel</string>
+    <string name="te_recomendamos">We recommend you</string>
+    <string name="coleccion_actividad" translatable="false">Actividades</string>
+    <string name="label_escoge_actividad">Choose an activity</string>
+    <string name="sigue_asi">To keep it that way!</string>
+    <string name="coleccion_registro" translatable="false">Registros</string>
 </resources>

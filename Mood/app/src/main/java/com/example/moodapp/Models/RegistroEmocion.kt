@@ -10,5 +10,5 @@ data class RegistroEmocion(
     val emocionNombre: String,
     val emocionImagenUrl: String,
     val emocionSeveridad: Long,
-    val actividad: String?
+    var actividad: String?
 ) : Parcelable

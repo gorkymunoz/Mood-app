@@ -11,5 +11,5 @@
                 app:destination="@id/escogeActividadFragment"/>
     </fragment>
     <fragment android:id="@+id/escogeActividadFragment" android:name="com.example.moodapp.EscogeActividadFragment"
-              android:label="fragment_escoge_actividad" tools:layout="@layout/fragment_escoge_actividad"/>
+              android:label="@string/label_escoge_actividad" tools:layout="@layout/fragment_escoge_actividad"/>
 </navigation>

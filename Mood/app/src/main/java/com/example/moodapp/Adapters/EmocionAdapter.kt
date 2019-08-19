@@ -64,7 +64,7 @@ class EmocionAdapter(
     override fun onBindViewHolder(holder: EmocionViewHolder, position: Int) {
         val emocion = emociones[position]
         holder.nombreEmocion.text = emocion.nombreEmocion
-        holder.setImage(emocion.imagenUrl)
+        holder.setImage(emocion.imagenUrl!!)
         holder.bind(emocion,clickListener)
     }
 
