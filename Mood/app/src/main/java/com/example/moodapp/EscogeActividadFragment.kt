@@ -1,6 +1,5 @@
 package com.example.moodapp
 
-
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,8 +15,6 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -41,7 +38,6 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         }else{
             registroEmocion.actividad = parent!!.getItemAtPosition(position).toString()
         }
-
     }
 
     private var posicion : Int = -1
@@ -106,7 +102,6 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
                     }
                 }
             }
-
     }
 
     fun revisarSeveridad(){
@@ -114,7 +109,6 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
             getActividades()
             actividadesNombre.add(0,"Escoge una actividad")
             llenarSpinner()
-
         }else{
             registroEmocion.actividad = resources.getString(R.string.sigue_asi)
             spActividades.visibility = View.GONE

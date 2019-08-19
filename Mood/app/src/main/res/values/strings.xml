@@ -31,4 +31,5 @@
     <string name="coleccion_registro" translatable="false">Registros</string>
     <string name="debe_escoger_actividad">You have to choose an activity</string>
     <string name="guardar">Save</string>
+    <string name="coleccion_sugerencia">Sugerencias</string>
 </resources>

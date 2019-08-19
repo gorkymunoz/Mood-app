@@ -24,4 +24,6 @@
     <string name="tu_emocion">Te sientes</string>
     <string name="label_escoge_actividad">Escoge una actividad</string>
     <string name="sigue_asi">¡Seguir así!</string>
+    <string name="debe_escoger_actividad">Tiene que escoger una actividad</string>
+    <string name="guardar">Guardar</string>
 </resources>
