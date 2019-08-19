@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.moodapp.Models.RegistroEmocion
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,12 +21,20 @@ private const val ARG_PARAM2 = "param2"
  */
 class EscogeActividadFragment : Fragment() {
 
+    private lateinit var registroEmocion:RegistroEmocion
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_escoge_actividad, container, false)
+        val view = inflater.inflate(R.layout.fragment_escoge_actividad, container, false)
+        return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        registroEmocion = arguments!!.getParcelable<RegistroEmocion>("registroEmocion")!!
+        Toast.makeText(context,registroEmocion.emocionNombre,Toast.LENGTH_SHORT).show()
     }
 
 
