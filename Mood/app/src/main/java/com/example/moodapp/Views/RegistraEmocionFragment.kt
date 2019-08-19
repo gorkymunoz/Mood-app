@@ -35,7 +35,7 @@ private const val ARG_PARAM2 = "param2"
 class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
     private val emociones = mutableListOf<Emocion>()
-    private val db = FirebaseFirestore.getInstance()
+    private lateinit var db: FirebaseFirestore
     private lateinit var fechaRegistroEmocion : EditText
     private lateinit var horaRegistroEmocion : EditText
     private lateinit var calendar:Calendar
@@ -80,6 +80,7 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = FirebaseFirestore.getInstance()
         calendar = Calendar.getInstance()
     }
     override fun onCreateView(
