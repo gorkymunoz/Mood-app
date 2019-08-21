@@ -13,6 +13,7 @@ import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -20,9 +21,10 @@ private const val ARG_PARAM2 = "param2"
 class HistorialEmocionesFragment : Fragment() {
 
     private lateinit var historialRegistros:RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var db:FirebaseFirestore
     private lateinit var auth:FirebaseAuth
-    private val registrosEmociones = mutableListOf<RegistroEmocion>()
+    private lateinit var query:ListenerRegistration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,23 +37,25 @@ class HistorialEmocionesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_historial_emociones, container, false)
+        viewAdapter = HistorialAdapter(getData(auth.currentUser!!.uid))
         historialRegistros = view.findViewById(R.id.historial_registros)
         iniciarRVHistorial()
         return view
     }
 
     fun iniciarRVHistorial(){
-        historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
-        getData(auth.currentUser!!.uid)
-        historialRegistros.adapter = HistorialAdapter(registrosEmociones)
+        historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)!!
+        val registros = getData(auth.currentUser!!.uid)
+        historialRegistros.adapter = HistorialAdapter(registros)
     }
 
-    fun getData(userId: String) {
+    fun getData(userId: String) :List<RegistroEmocion> {
+        val registrosEmociones = mutableListOf<RegistroEmocion>()
         val registrosRef = db
             .collection(resources.getString(R.string.coleccion_usuario))
             .document(userId)
             .collection(resources.getString(R.string.coleccion_registro))
-        registrosRef.addSnapshotListener { snapshot, exception ->
+        query = registrosRef.addSnapshotListener { snapshot, exception ->
             if (exception != null) {
                 return@addSnapshotListener
             }
@@ -73,6 +77,7 @@ class HistorialEmocionesFragment : Fragment() {
                 }
             }
         }
+        return registrosEmociones
     }
 
 

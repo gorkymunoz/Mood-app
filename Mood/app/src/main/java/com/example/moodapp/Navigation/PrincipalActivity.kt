@@ -17,7 +17,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.evernote.android.state.StateSaver
 import com.example.moodapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -26,17 +25,15 @@ import setupWithNavController
 class PrincipalActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
-    private lateinit var principalBottonNavigation: BottomNavigationView
     private lateinit var auth:FirebaseAuth
-    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
         setContentView(R.layout.activity_principal)
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
+
 
 /*
         toolbar = findViewById(R.id.toolbar)
@@ -48,12 +45,10 @@ class PrincipalActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        StateSaver.saveInstanceState(this, outState)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavigationBar()
     }
-
 /*
     override fun onSupportNavigateUp() =
         findNavController(R.id.principal_host_fragment).navigateUp()
@@ -70,7 +65,6 @@ class PrincipalActivity : AppCompatActivity() {
         when(id){
             R.id.cerrar_sesion -> cerrarSesion()
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -99,5 +93,9 @@ class PrincipalActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController)
         })
         currentNavController = controller
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
     }
 }

@@ -5,14 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moodapp.Models.RegistroEmocion
 import com.example.moodapp.R
 
-class HistorialAdapter(private val registros: List<RegistroEmocion>) : RecyclerView.Adapter<HistorialViewHolder>(){
+class HistorialAdapter(private val registros: List<RegistroEmocion>) :
+    RecyclerView.Adapter<HistorialViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistorialViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_emocion,parent,false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.card_emocion,parent,false)
         return HistorialViewHolder(view)
     }
 

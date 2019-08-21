@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.evernote.android.state.StateSaver
 import com.example.moodapp.Navigation.PrincipalActivity
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth

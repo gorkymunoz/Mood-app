@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -52,8 +52,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     //evernote state
-    implementation 'com.evernote:android-state:1.4.1'
-    kapt 'com.evernote:android-state-processor:1.4.1'
+    //implementation 'com.evernote:android-state:1.4.1'
+    //kapt 'com.evernote:android-state-processor:1.4.1'
 
     //firestore
     implementation 'com.google.firebase:firebase-firestore:20.2.0'
