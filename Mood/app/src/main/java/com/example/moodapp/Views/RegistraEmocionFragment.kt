@@ -30,35 +30,30 @@ import com.google.firebase.firestore.FirebaseFirestore
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class RegistraEmocionFragment : Fragment(), View.OnClickListener{
+class RegistraEmocionFragment : Fragment(), View.OnClickListener {
 
-    private val emociones = mutableListOf<Emocion>()
     private lateinit var db: FirebaseFirestore
-    private lateinit var fechaRegistroEmocion : EditText
-    private lateinit var horaRegistroEmocion : EditText
-    private lateinit var calendar:Calendar
-    private lateinit var rvEmocion:RecyclerView
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
+    private lateinit var fechaRegistroEmocion: EditText
+    private lateinit var horaRegistroEmocion: EditText
+    private lateinit var calendar: Calendar
+    private lateinit var rvEmocion: RecyclerView
 
     override fun onClick(view: View) {
         val id = view.id
-        when(id){
+        when (id) {
             R.id.fecha_registro_emocion -> mostrarDialogoFecha(calendar)
             R.id.hora_registro_emocion -> mostrarDialogoHora(calendar)
         }
     }
 
     private fun mostrarDialogoHora(calendar: Calendar) {
-        val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener{view,hora,minuto ->
-            calendar.set(Calendar.HOUR_OF_DAY,hora)
-            calendar.set(Calendar.MINUTE,minuto)
+        val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hora, minuto ->
+            calendar.set(Calendar.HOUR_OF_DAY, hora)
+            calendar.set(Calendar.MINUTE, minuto)
             val horaEscogida = calendar.time
             val horaFormato = darFormatoHora(horaEscogida)
             horaRegistroEmocion.setText(horaFormato)
-        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false)
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
         timePicker.show()
     }
 
@@ -67,11 +62,12 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
         db = FirebaseFirestore.getInstance()
         calendar = Calendar.getInstance()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =inflater.inflate(R.layout.fragment_registra_emocion, container, false)
+        val view = inflater.inflate(R.layout.fragment_registra_emocion, container, false)
         fechaRegistroEmocion = view.findViewById(R.id.fecha_registro_emocion)
         horaRegistroEmocion = view.findViewById(R.id.hora_registro_emocion)
         rvEmocion = view.findViewById(R.id.rv_emociones)
@@ -89,9 +85,9 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
     }
 
     private fun iniciarRVEmocion() {
-        rvEmocion.layoutManager = LinearLayoutManager(this.context,RecyclerView.HORIZONTAL,false)
-        getData()
-        rvEmocion.adapter = EmocionAdapter(emociones){emocion:Emocion -> escogerActividad(emocion)}
+        rvEmocion.layoutManager = LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+        val emociones = getData()
+        rvEmocion.adapter = EmocionAdapter(emociones) { emocion: Emocion -> escogerActividad(emocion) }
     }
 
     private fun mostrarDialogoFecha(calendar: Calendar) {
@@ -110,17 +106,17 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
     private fun escogerActividad(emocion: Emocion) {
         val registroEmocion = RegistroEmocion(
             fechaRegistro = fechaRegistroEmocion.text.toString(),
-            horaRegistro= horaRegistroEmocion.text.toString(),
-            emocionNombre= emocion.nombreEmocion!!,
-            emocionSeveridad= emocion.severidadEmocion!!,
+            horaRegistro = horaRegistroEmocion.text.toString(),
+            emocionNombre = emocion.nombreEmocion!!,
+            emocionSeveridad = emocion.severidadEmocion!!,
             emocionImagenUrl = emocion.imagenUrl!!,
             actividad = null
-            )
+        )
         val bundle = bundleOf("registroEmocion" to registroEmocion)
-        findNavController().navigate(R.id.action_registraEmocionFragment2_to_escogeActividadFragment,bundle)
+        findNavController().navigate(R.id.action_registraEmocionFragment2_to_escogeActividadFragment, bundle)
     }
 
-    fun iniciarFechaHora(){
+    fun iniciarFechaHora() {
         fechaRegistroEmocion.inputType = InputType.TYPE_NULL
         fechaRegistroEmocion.setText(fechaActual(calendar))
 
@@ -138,29 +134,29 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
         return SimpleDateFormat("h:mm a").format(hora)
     }
 
-    fun fechaActual(calendar: Calendar):String{
+    fun fechaActual(calendar: Calendar): String {
         val date = calendar.time
         return darFormatoFecha(date)
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun darFormatoFecha(fecha: Date):String{
+    fun darFormatoFecha(fecha: Date): String {
         val dateFormat = SimpleDateFormat("EEEE, dd 'de' MMMM").format(fecha)
         return dateFormat
     }
 
-    fun getData(){
+    fun getData(): List<Emocion> {
+        val emociones = mutableListOf<Emocion>()
         val emocionessRef = db.collection("Emociones")
         emocionessRef
             .orderBy("severidad")
-            .addSnapshotListener{
-                    snapshot, exception ->
-                if (exception!=null){
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
                     return@addSnapshotListener
                 }
-                for (doc in snapshot!!.documentChanges){
-                    when(doc.type){
-                        DocumentChange.Type.ADDED ->{
+                for (doc in snapshot!!.documentChanges) {
+                    when (doc.type) {
+                        DocumentChange.Type.ADDED -> {
                             val emocion = Emocion(
                                 doc.document.getString("nombre"),
                                 doc.document.getLong("severidad"),
@@ -173,7 +169,7 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener{
                     }
                 }
             }
+        return emociones
     }
-
 
 }

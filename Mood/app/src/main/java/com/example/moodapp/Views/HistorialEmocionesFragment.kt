@@ -44,7 +44,7 @@ class HistorialEmocionesFragment : Fragment() {
     }
 
     fun iniciarRVHistorial(){
-        historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)!!
+        historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
         val registros = getData(auth.currentUser!!.uid)
         historialRegistros.adapter = HistorialAdapter(registros)
     }
