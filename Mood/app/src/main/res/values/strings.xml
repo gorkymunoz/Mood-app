@@ -35,4 +35,5 @@
     <string name="obligatorio">Required</string>
     <string name="tus_registros">Your record</string>
     <string name="califica_actividad">Rate your last activity</string>
+    <string name="califica_actividad_dialog">Rate the last activity that we recommended you</string>
 </resources>

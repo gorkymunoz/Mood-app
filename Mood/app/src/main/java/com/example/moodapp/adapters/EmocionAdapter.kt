@@ -48,9 +48,6 @@ class EmocionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     fun bind(emocion: Emocion,clickListener:(Emocion)->Unit){
         itemView.setOnClickListener { clickListener(emocion)}
     }
-    /*fun bind(emocion: Emocion){
-        itemView.setOnClickListener { view -> Toast.makeText(view.context,emocion.nombreEmocion,Toast.LENGTH_SHORT).show() }
-    }*/
 
     val nombreEmocion = itemView.findViewById<TextView>(R.id.nombre_emocion)
     val imagePost =itemView.findViewById<ImageView>(R.id.imagen_emocion)
