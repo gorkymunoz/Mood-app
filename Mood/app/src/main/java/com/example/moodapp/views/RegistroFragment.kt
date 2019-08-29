@@ -1,4 +1,4 @@
-package com.example.moodapp.Views
+package com.example.moodapp.views
 
 
 import android.os.Bundle
@@ -12,8 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.example.moodapp.Interfaces.Utils
-import com.example.moodapp.Models.Usuario
+import com.example.moodapp.interfaces.Utils
+import com.example.moodapp.models.Usuario
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

@@ -1,4 +1,4 @@
-package com.example.moodapp.Views
+package com.example.moodapp.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moodapp.Adapters.HistorialAdapter
-import com.example.moodapp.Models.RegistroEmocion
+import com.example.moodapp.adapters.HistorialAdapter
+import com.example.moodapp.models.RegistroEmocion
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange

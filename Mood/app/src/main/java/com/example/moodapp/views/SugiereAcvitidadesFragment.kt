@@ -1,4 +1,4 @@
-package com.example.moodapp.Views
+package com.example.moodapp.views
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import io.opencensus.internal.Utils
 import kotlinx.android.synthetic.main.fragment_sugiere_emociones.*
 
 

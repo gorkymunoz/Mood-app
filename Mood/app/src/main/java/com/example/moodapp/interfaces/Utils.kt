@@ -1,4 +1,4 @@
-package com.example.moodapp.Interfaces
+package com.example.moodapp.interfaces
 
 interface Utils{
 

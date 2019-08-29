@@ -1,4 +1,4 @@
-package com.example.moodapp.Views
+package com.example.moodapp.views
 
 
 import android.content.Intent
@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.example.moodapp.Navigation.PrincipalActivity
+import com.example.moodapp.navigation.PrincipalActivity
 import com.example.moodapp.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*

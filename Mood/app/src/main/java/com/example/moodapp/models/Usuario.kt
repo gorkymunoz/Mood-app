@@ -1,4 +1,4 @@
-package com.example.moodapp.Models
+package com.example.moodapp.models
 
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.*

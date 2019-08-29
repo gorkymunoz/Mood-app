@@ -5,6 +5,6 @@
             app:startDestination="@id/sugiereEmocionesFragment">
 
     <fragment android:id="@+id/sugiereEmocionesFragment"
-              android:name="com.example.moodapp.Views.SugiereEmocionesFragment"
+              android:name="com.example.moodapp.views.SugiereEmocionesFragment"
               android:label="@string/label_sugiere" tools:layout="@layout/fragment_sugiere_emociones"/>
 </navigation>

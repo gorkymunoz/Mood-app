@@ -5,7 +5,7 @@
             app:startDestination="@id/registraEmocionFragment2">
 
     <fragment android:id="@+id/registraEmocionFragment2"
-              android:name="com.example.moodapp.Views.RegistraEmocionFragment" android:label="@string/label_registra_emocion"
+              android:name="com.example.moodapp.views.RegistraEmocionFragment" android:label="@string/label_registra_emocion"
               tools:layout="@layout/fragment_registra_emocion">
         <action android:id="@+id/action_registraEmocionFragment2_to_escogeActividadFragment"
                 app:destination="@id/escogeActividadFragment"/>

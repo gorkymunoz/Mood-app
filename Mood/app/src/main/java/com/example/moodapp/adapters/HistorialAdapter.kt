@@ -1,15 +1,13 @@
-package com.example.moodapp.Adapters
+package com.example.moodapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moodapp.Models.RegistroEmocion
+import com.example.moodapp.models.RegistroEmocion
 import com.example.moodapp.R
 
 class HistorialAdapter(private val registros: List<RegistroEmocion>) :

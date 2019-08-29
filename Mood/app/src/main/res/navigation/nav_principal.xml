@@ -3,10 +3,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_principal"
             app:startDestination="@id/registraEmocionFragment">
-    <fragment android:id="@+id/registraEmocionFragment" android:name="com.example.moodapp.Views.RegistraEmocionFragment"
+    <fragment android:id="@+id/registraEmocionFragment" android:name="com.example.moodapp.views.RegistraEmocionFragment"
               android:label="Registra emociones" tools:layout="@layout/fragment_registra_emocion"/>
-    <fragment android:id="@+id/historialEmocionFragment" android:name="com.example.moodapp.Views.HistorialEmocionesFragment"
+    <fragment android:id="@+id/historialEmocionFragment" android:name="com.example.moodapp.views.HistorialEmocionesFragment"
               android:label="Historial" tools:layout="@layout/fragment_historial_emociones"/>
-    <fragment android:id="@+id/sugiereEmocionFragment" android:name="com.example.moodapp.Views.SugiereEmocionesFragment"
+    <fragment android:id="@+id/sugiereEmocionFragment" android:name="com.example.moodapp.views.SugiereEmocionesFragment"
               android:label="Sugiere emociones" tools:layout="@layout/fragment_sugiere_emociones"/>
 </navigation>

@@ -34,4 +34,5 @@
     <string name="coleccion_sugerencia">Sugerencias</string>
     <string name="obligatorio">Required</string>
     <string name="tus_registros">Your record</string>
+    <string name="califica_actividad">Rate your last activity</string>
 </resources>

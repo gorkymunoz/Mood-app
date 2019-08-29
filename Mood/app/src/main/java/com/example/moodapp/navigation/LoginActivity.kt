@@ -1,4 +1,4 @@
-package com.example.moodapp.Navigation
+package com.example.moodapp.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

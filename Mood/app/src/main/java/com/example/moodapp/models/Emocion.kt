@@ -1,4 +1,4 @@
-package com.example.moodapp.Models
+package com.example.moodapp.models
 
 data class Emocion(val nombreEmocion:String?,
                    val severidadEmocion:Long?,

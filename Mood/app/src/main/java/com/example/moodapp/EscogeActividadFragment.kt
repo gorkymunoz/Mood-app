@@ -1,15 +1,14 @@
 package com.example.moodapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
-import com.example.moodapp.Models.Actividad
-import com.example.moodapp.Models.RegistroEmocion
+import com.example.moodapp.models.Actividad
+import com.example.moodapp.models.RegistroEmocion
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,25 +19,6 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
-    override fun onClick(view: View) {
-        val id = view.id
-        when(id){
-            R.id.guardar_registro -> guardarNuevoRegistro()
-        }
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        posicion = 0
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        posicion = position
-        if(position==0){
-            registroEmocion.actividad = null
-        }else{
-            registroEmocion.actividad = parent!!.getItemAtPosition(position).toString()
-        }
-    }
 
     private var posicion : Int = -1
     private lateinit var auth: FirebaseAuth
@@ -78,6 +58,26 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         registroEmocion = arguments!!.getParcelable<RegistroEmocion>("registroEmocion")!!
     }
 
+    override fun onClick(view: View) {
+        val id = view.id
+        when(id){
+            R.id.guardar_registro -> guardarNuevoRegistro()
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        posicion = 0
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        posicion = position
+        if(position==0){
+            registroEmocion.actividad = null
+        }else{
+            registroEmocion.actividad = parent!!.getItemAtPosition(position).toString()
+        }
+    }
+
     fun getActividades(){
         val actividadesRef = db.collection(resources.getString(R.string.coleccion_actividad))
         actividadesRef.orderBy("likes", Query.Direction.DESCENDING)
@@ -109,6 +109,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
             getActividades()
             actividadesNombre.add(0,"Escoge una actividad")
             llenarSpinner()
+            sigueAsi.visibility = View.GONE
         }else{
             registroEmocion.actividad = resources.getString(R.string.sigue_asi)
             spActividades.visibility = View.GONE
@@ -123,7 +124,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     }
 
     fun guardarNuevoRegistro(){
-        if(posicion > 0){
+        if(registroEmocion.actividad != null){
             val userId = auth.currentUser!!.uid
             val registroRef = db
                 .collection(resources.getString(R.string.coleccion_usuario))
