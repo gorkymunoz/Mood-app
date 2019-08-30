@@ -26,4 +26,8 @@
     <string name="sigue_asi">¡Seguir así!</string>
     <string name="debe_escoger_actividad">Tiene que escoger una actividad</string>
     <string name="guardar">Guardar</string>
+    <string name="califica_actividad">Califica tu última actividad</string>
+    <string name="califica_actividad_dialog">Califica la última actividad que te recomendamos</string>
+    <string name="obligatorio">Obligatorio</string>
+    <string name="tus_registros">Tus registros</string>
 </resources>

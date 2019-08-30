@@ -20,7 +20,6 @@ private const val ARG_PARAM2 = "param2"
 
 class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private var posicion : Int = -1
     private lateinit var auth: FirebaseAuth
     private val actividades = mutableListOf<Actividad>()
     private val actividadesNombre = mutableListOf<String>()
@@ -55,7 +54,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         super.onCreate(savedInstanceState)
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
-        registroEmocion = arguments!!.getParcelable<RegistroEmocion>("registroEmocion")!!
+        registroEmocion = arguments!!.getParcelable("registroEmocion")!!
     }
 
     override fun onClick(view: View) {
@@ -66,16 +65,13 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        posicion = 0
+        registroEmocion.actividad = actividades[0].nombreActividad
+        registroEmocion.actividadId = actividades[0].actividadId
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        posicion = position
-        if(position==0){
-            registroEmocion.actividad = null
-        }else{
             registroEmocion.actividad = parent!!.getItemAtPosition(position).toString()
-        }
+            registroEmocion.actividadId = actividades[position].actividadId
     }
 
     fun getActividades(){
@@ -91,6 +87,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
                         DocumentChange.Type.ADDED -> {
                             val actividad = Actividad(
                                 nombreActividad = doc.document.getString("nombre")!!,
+                                actividadId = doc.document.id,
                                 likes = doc.document.getLong("likes"),
                                 dislikes = doc.document.getLong("dislikes")
                             )
@@ -107,11 +104,11 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     fun revisarSeveridad(){
         if(registroEmocion.emocionSeveridad>2){
             getActividades()
-            actividadesNombre.add(0,"Escoge una actividad")
             llenarSpinner()
             sigueAsi.visibility = View.GONE
         }else{
             registroEmocion.actividad = resources.getString(R.string.sigue_asi)
+            registroEmocion.estado = "Calificado"
             spActividades.visibility = View.GONE
             sigueAsi.visibility = View.VISIBLE
         }
@@ -129,8 +126,9 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
             val registroRef = db
                 .collection(resources.getString(R.string.coleccion_usuario))
                 .document(userId)
-                .collection(resources.getString(R.string.coleccion_registro))
-            registroRef.document()
+                .collection(resources.getString(R.string.coleccion_registro)).document()
+            registroEmocion.documentoId = registroRef.id
+            registroRef
                 .set(registroEmocion)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {

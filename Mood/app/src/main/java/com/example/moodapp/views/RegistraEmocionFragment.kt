@@ -128,7 +128,7 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun mostrarDialogoFecha(calendar: Calendar) {
-        val datePicker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
+        val datePicker = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, month, day ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, day)
@@ -148,7 +148,10 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
                 emocionNombre = emocion.nombreEmocion!!,
                 emocionSeveridad = emocion.severidadEmocion!!,
                 emocionImagenUrl = emocion.imagenUrl!!,
-                actividad = null
+                actividad = null,
+                estado = "Sin calificar",
+                actividadId = null,
+                documentoId = null
             )
             val bundle = bundleOf("registroEmocion" to registroEmocion)
             findNavController().navigate(R.id.action_registraEmocionFragment2_to_escogeActividadFragment, bundle)
@@ -158,7 +161,7 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun mostrarDialogoHora(calendar: Calendar) {
-        val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hora, minuto ->
+        val timePicker = TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hora, minuto ->
             calendar.set(Calendar.HOUR_OF_DAY, hora)
             calendar.set(Calendar.MINUTE, minuto)
             val horaEscogida = calendar.time

@@ -21,7 +21,6 @@ private const val ARG_PARAM2 = "param2"
 class HistorialEmocionesFragment : Fragment() {
 
     private lateinit var historialRegistros:RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var db:FirebaseFirestore
     private lateinit var auth:FirebaseAuth
     private lateinit var query:ListenerRegistration
@@ -37,7 +36,6 @@ class HistorialEmocionesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_historial_emociones, container, false)
-        viewAdapter = HistorialAdapter(getData(auth.currentUser!!.uid))
         historialRegistros = view.findViewById(R.id.historial_registros)
         iniciarRVHistorial()
         return view
@@ -46,7 +44,7 @@ class HistorialEmocionesFragment : Fragment() {
     fun iniciarRVHistorial(){
         historialRegistros.layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
         val registros = getData(auth.currentUser!!.uid)
-        historialRegistros.adapter = HistorialAdapter(registros)
+        historialRegistros.adapter = HistorialAdapter(registros,fragmentManager!!)
     }
 
     fun getData(userId: String) :List<RegistroEmocion> {
@@ -62,14 +60,16 @@ class HistorialEmocionesFragment : Fragment() {
             for (doc in snapshot!!.documentChanges){
                 when(doc.type){
                     DocumentChange.Type.ADDED -> {
-                        val registroEmocion = RegistroEmocion(
+                        val registroEmocion = doc.document.toObject(RegistroEmocion::class.java)
+                        /*val registroEmocion = RegistroEmocion(
                             fechaRegistro = doc.document.getString("fechaRegistro")!!,
                             horaRegistro = doc.document.getString("horaRegistro")!!,
                             emocionNombre = doc.document.getString("emocionNombre")!!,
                             emocionImagenUrl = doc.document.getString("emocionImagenUrl")!!,
                             actividad = doc.document.getString("actividad"),
+                            estado = doc.document.getString("estado"),
                             emocionSeveridad = doc.document.getLong("emocionSeveridad")!!
-                        )
+                        )*/
                         registrosEmociones.add(registroEmocion)
                         historialRegistros.adapter!!.notifyDataSetChanged()
                     }

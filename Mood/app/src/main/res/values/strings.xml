@@ -31,7 +31,7 @@
     <string name="coleccion_registro" translatable="false">Registros</string>
     <string name="debe_escoger_actividad">You have to choose an activity</string>
     <string name="guardar">Save</string>
-    <string name="coleccion_sugerencia">Sugerencias</string>
+    <string name="coleccion_sugerencia" translatable="false">Sugerencias</string>
     <string name="obligatorio">Required</string>
     <string name="tus_registros">Your record</string>
     <string name="califica_actividad">Rate your last activity</string>
