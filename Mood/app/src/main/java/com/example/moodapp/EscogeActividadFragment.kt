@@ -35,7 +35,6 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     private lateinit var sigueAsi : TextView
     private lateinit var imagenActividad : ImageView
     private lateinit var db : FirebaseFirestore
-    private var estado = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +49,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         constraintEscogerActividad = view.findViewById(R.id.constraint_escoge_actividad)
         Glide.with(view.context).load(registroEmocion.emocionImagenUrl).into(imagenActividad)
         revisarSeveridad()
-        updateUI(estado)
+        updateUI(false)
         return view
     }
 

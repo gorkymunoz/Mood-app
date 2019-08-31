@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.moodapp.navigation.PrincipalActivity
@@ -27,6 +28,8 @@ private const val ARG_PARAM2 = "param2"
 class LoginFragment : Fragment(),View.OnClickListener {
 
     private lateinit var iniciarSesionBoton:Button
+    private lateinit var layoutLogin: ConstraintLayout
+    private lateinit var layoutPbLogin: ConstraintLayout
     lateinit var irRegistro: TextView
     private lateinit var auth: FirebaseAuth
 
@@ -47,6 +50,8 @@ class LoginFragment : Fragment(),View.OnClickListener {
     ): View? {
         val view =inflater.inflate(R.layout.fragment_login, container, false)
         irRegistro = view.findViewById(R.id.ir_registro)
+        layoutLogin = view.findViewById(R.id.layout_login)
+        layoutPbLogin = view.findViewById(R.id.layout_pb_login)
         iniciarSesionBoton = view.findViewById(R.id.iniciar_sesion_boton)
         return view
     }
@@ -56,6 +61,7 @@ class LoginFragment : Fragment(),View.OnClickListener {
         iniciarSesionBoton.setOnClickListener(this)
         irRegistro.setOnClickListener(this)
         Glide.with(context!!).load(R.drawable.logo).into(imagen_login)
+        updateUI(false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,19 +86,18 @@ class LoginFragment : Fragment(),View.OnClickListener {
         if (!validarCampos()){
             return
         }
-
+        updateUI(true)
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(context,"Credenciales correctas",Toast.LENGTH_SHORT).show()
                 usuarioLogueado()
             } else {
+                updateUI(false)
                 try {
                     throw task.exception!!
                 } catch (e: FirebaseAuthInvalidUserException) {
                     correo_login.error = "Correo Invalido"
                     correo_login.requestFocus()
-/*                    mStatusTextView.setError("Invalid Emaild Id")
-                    mStatusTextView.requestFocus()*/
                 } catch (e: FirebaseAuthInvalidCredentialsException) {
                     contrasena_login_layout.error = "Credenciales Incorrectas"
   /*                     mStatusTextView.setError("Invalid Password")
@@ -130,5 +135,15 @@ class LoginFragment : Fragment(),View.OnClickListener {
         val intent = Intent(context, PrincipalActivity::class.java)
         startActivity(intent)
         activity?.finish()
+    }
+
+    fun updateUI(guardando:Boolean){
+        if(guardando){
+            layoutPbLogin.visibility = View.VISIBLE
+            layoutLogin.visibility = View.GONE
+        }else{
+            layoutPbLogin.visibility = View.GONE
+            layoutLogin.visibility = View.VISIBLE
+        }
     }
 }
