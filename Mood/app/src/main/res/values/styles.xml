@@ -15,4 +15,8 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="spinnerStyle" parent="@android:style/Widget.Material.Spinner">
+        <item name="android:textSize">24dp</item>
+    </style>
+
 </resources>
