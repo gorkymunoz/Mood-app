@@ -126,7 +126,6 @@ class RegistroFragment : Fragment(), View.OnClickListener, Utils {
                     showToast(task.exception?.message.toString())
                 }
             }
-
     }
 
     private fun validarCampos(): Boolean {
