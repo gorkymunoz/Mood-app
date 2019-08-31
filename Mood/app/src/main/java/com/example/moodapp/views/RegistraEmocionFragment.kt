@@ -59,6 +59,12 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         auth = FirebaseAuth.getInstance()
     }
 
+    override fun onResume() {
+        super.onResume()
+        calendar = Calendar.getInstance()
+        iniciarFechaHora()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,7 +76,6 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
         layoutSnackBar = view.findViewById(R.id.layout_snackbar)
         consultarRegistrosSinCalificar()
         iniciarRVEmocion()
-        iniciarFechaHora()
         return view
     }
 
@@ -92,13 +97,12 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
             .get().addOnCompleteListener { task ->
                 val result = task.result
                 if (task.isSuccessful && !result!!.isEmpty) {
-
                     tamanoSinCalificar = task.result!!.documents.size
                     if(tamanoSinCalificar>0){
                         val emocionRegistrada:RegistroEmocion= task.result!!.documents[0].toObject(RegistroEmocion::class.java)!!
                         Snackbar.make(
                             layoutSnackBar,
-                            task.result!!.documents.size.toString(),
+                            emocionRegistrada.actividad!!,
                             Snackbar.LENGTH_INDEFINITE
                         )
                             .setAction(
@@ -106,8 +110,6 @@ class RegistraEmocionFragment : Fragment(), View.OnClickListener {
                             ) { abrirDialog(emocionRegistrada) }
                             .show()
                     }
-                } else {
-                    Toast.makeText(context, task.exception.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
     }

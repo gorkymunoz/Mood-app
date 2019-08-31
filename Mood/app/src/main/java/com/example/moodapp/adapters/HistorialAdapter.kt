@@ -34,31 +34,31 @@ class HistorialAdapter(private val registros: List<RegistroEmocion>, private val
     override fun onBindViewHolder(holder: HistorialViewHolder, position: Int) {
 
         val registro = registros[position]
-        if(registro.estado == "Sin calificar"){
+/*        if(registro.estado == "Sin calificar"){
             holder.cardLayout.setBackgroundColor(Color.RED)
             holder.itemView.setOnClickListener {
                 abrirDialog(registro)
             }
         }else{
             holder.cardLayout.setBackgroundColor(Color.GREEN)
-        }
+        }*/
         holder.horaRegistro.text = registro.horaRegistro
         holder.fechaRegistro.text = registro.fechaRegistro
         holder.nombreActividad.text = registro.actividad
         holder.setImage(registro.emocionImagenUrl)
     }
-    fun abrirDialog(registro: RegistroEmocion) {
+/*    fun abrirDialog(registro: RegistroEmocion) {
         Log.e("emocion",registro.emocionNombre)
         val bundle = bundleOf("registroEmocion" to registro)
         val dialog = CalificarActividadDialogFragment()
         dialog.arguments = bundle
         dialog.show(fragmentManager,"Califica actividad")
-    }
+    }*/
 }
 
 class HistorialViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-    val cardLayout = itemView.findViewById<CardView>(R.id.card_registro_historial)
+    //val cardLayout = itemView.findViewById<CardView>(R.id.card_registro_historial)
     val nombreActividad = itemView.findViewById<TextView>(R.id.actividad_historial)
     val fechaRegistro = itemView.findViewById<TextView>(R.id.fecha_historial)
     val horaRegistro = itemView.findViewById<TextView>(R.id.hora_historial)

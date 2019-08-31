@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.moodapp.models.Actividad
 import com.example.moodapp.models.RegistroEmocion
@@ -13,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.fragment_escoge_actividad.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -26,10 +29,13 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private lateinit var registroEmocion:RegistroEmocion
     lateinit var spActividades: Spinner
+    private lateinit var pbEscogerActividad:ProgressBar
+    private lateinit var constraintEscogerActividad:ConstraintLayout
     private lateinit var guardarRegistro:Button
     private lateinit var sigueAsi : TextView
     private lateinit var imagenActividad : ImageView
     private lateinit var db : FirebaseFirestore
+    private var estado = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +46,11 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         sigueAsi = view.findViewById(R.id.sigue_asi)
         imagenActividad = view.findViewById(R.id.imagen_actividad)
         guardarRegistro = view.findViewById(R.id.guardar_registro)
+        pbEscogerActividad = view.findViewById(R.id.pb_escoge_actividad)
+        constraintEscogerActividad = view.findViewById(R.id.constraint_escoge_actividad)
         Glide.with(view.context).load(registroEmocion.emocionImagenUrl).into(imagenActividad)
         revisarSeveridad()
+        updateUI(estado)
         return view
     }
 
@@ -122,6 +131,7 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
 
     fun guardarNuevoRegistro(){
         if(registroEmocion.actividad != null){
+            updateUI(true)
             val userId = auth.currentUser!!.uid
             val registroRef = db
                 .collection(resources.getString(R.string.coleccion_usuario))
@@ -132,6 +142,8 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
                 .set(registroEmocion)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        findNavController().popBackStack(R.id.registraEmocionFragment2,false)
                         Toast.makeText(
                             context,
                             "Registro completado",
@@ -147,11 +159,22 @@ class EscogeActividadFragment : Fragment(), AdapterView.OnItemSelectedListener, 
                             .show()
                     }
                 }
+            updateUI(false)
         } else {
             Toast.makeText(context,
                 resources.getString(R.string.debe_escoger_actividad),
                 Toast.LENGTH_SHORT)
                 .show()
+        }
+    }
+
+    fun updateUI(estado:Boolean){
+        if(estado){
+            pbEscogerActividad.visibility = View.VISIBLE
+            constraintEscogerActividad.visibility = View.GONE
+        }else{
+            pbEscogerActividad.visibility = View.GONE
+            constraintEscogerActividad.visibility = View.VISIBLE
         }
     }
 

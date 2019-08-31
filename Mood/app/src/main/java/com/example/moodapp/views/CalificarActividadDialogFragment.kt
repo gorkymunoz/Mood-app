@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.moodapp.R
@@ -28,6 +29,7 @@ class CalificarActividadDialogFragment: DialogFragment(), View.OnClickListener {
     private lateinit var registroEmocion:RegistroEmocion
     private lateinit var calificacionLike:ImageView
     private lateinit var calificacionDislike:ImageView
+    private lateinit var actividadRecomendada:TextView
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseFirestore
 
@@ -44,7 +46,8 @@ class CalificarActividadDialogFragment: DialogFragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root:View = inflater.inflate(R.layout.dialog_califica_actividad,container,false)
-        actividad_recomendada.text = registroEmocion.actividad
+        actividadRecomendada = root.findViewById(R.id.actividad_recomendada)
+        actividadRecomendada.text = registroEmocion.actividad
         calificacionDislike = root.findViewById(R.id.imagen_dislike)
         calificacionLike = root.findViewById(R.id.imagen_like)
         calificacionDislike.setOnClickListener(this)
