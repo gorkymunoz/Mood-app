@@ -37,74 +37,87 @@
                 android:layout_marginStart="32dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/imagen_registro"/>
+
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp" tools:src="@tools:sample/avatars"
                 android:id="@+id/imagen_registro"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout3" android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
+                tools:src="@tools:sample/avatars" />
 
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:hint="@string/username"
-                android:id="@+id/textInputLayout3" android:layout_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imagen_registro"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout4">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagen_registro">
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:background="@android:color/transparent"
-                    android:id="@+id/username_registro"/>
+                    android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:hint="@string/correo_electronico"
-                android:id="@+id/textInputLayout4" android:layout_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout5">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/correo_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:background="@android:color/transparent"
-                    android:id="@+id/correo_registro"/>
+                    android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/contrasena"
-                android:id="@+id/textInputLayout5" android:layout_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:hint="@string/contrasena"
+                app:layout_constraintBottom_toTopOf="@+id/registrarse_boton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
-                app:layout_constraintBottom_toTopOf="@+id/ir_login">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contrasena_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
                     android:background="@android:color/transparent"
-                    android:id="@+id/contrasena_registro"/>
+                    android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -120,18 +133,21 @@
                 android:layout_marginEnd="16dp"/>
 
         <TextView
-                android:text="@string/ir_login"
-                android:layout_width="200dp"
-                android:layout_height="0dp"
                 android:id="@+id/ir_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/ir_login"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/registrarse_boton"
-                android:layout_marginEnd="8dp" android:textAlignment="center" android:textSize="18sp"
-                android:layout_marginBottom="8dp"/>
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/registrarse_boton" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
